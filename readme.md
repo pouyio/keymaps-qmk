@@ -1,6 +1,4 @@
-![SofleKeyboard custom keymap](https://github.com/pouyio/keymaps/raw/master/keymap.png)
-
-Layout in [Keyboard Layout Editor](http://www.keyboard-layout-editor.com/#/gists/a8c20711f4953e7b41d8760d00769210)
+[![SofleKeyboard custom keymap](https://github.com/pouyio/keymaps/raw/master/keymap.png)](http://www.keyboard-layout-editor.com/#/gists/a8c20711f4953e7b41d8760d00769210)
 
 # Custom keymap for Sofle Keyboard
 

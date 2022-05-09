@@ -4,15 +4,14 @@
 
 **Removed top row**, resulting in 6x3+(4-3).
 
-Adapted to my personal needs:
+Adapted to **my** personal needs:
 - Coding
 - Easier transition from iso-es layout.
 - Same shortcuts among mac/lin/win.
 
-Feature changes:
+## Feature changes:
 - Modifiers only in left (CMD/Super, Alt/Opt, Ctrl)
 - Added more macros for both Mac and Linux/Win.
-    - 
 - The OLED has less info.
 - Left encoder controls mute and next/prev track. Right encoder pause and .
 - Layer tap in raise/lower buttons.

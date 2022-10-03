@@ -22,100 +22,10 @@ enum custom_keycodes {
     KC_C_WINDOW,   // change window (win: alt+tab)
     KC_M_C_WINDOW, // change window (mac: gui+tab)
     KC_C_TAB,      // change tab (ctrl+tab)
-    KC_C_TAB_PREV  // change tab window prev (shift+ctrl+tab),
-};
-
-enum tap_dances {
-    BRKT, // []
-    BRCE, // {}
-};
-
-typedef enum {
-    TD_NONE,
-    TD_TAP,
-    TD_HOLD
-} td_state_t;
-
-typedef struct {
-    bool       is_press_action;
-    td_state_t state;
-} td_tap_t;
-
-td_state_t cur_dance(qk_tap_dance_state_t *state) {
-    if (state->count == 1) {
-        if (!state->pressed)
-            return TD_TAP;
-        else
-            return TD_HOLD;
-    }
-    return TD_NONE;
-}
-
-static td_tap_t tap_state = {
-    .is_press_action = true,
-    .state = TD_NONE
-};
-
-void bracket_finished(qk_tap_dance_state_t *state, void *user_data) {
-    tap_state.state = cur_dance(state);
-    switch (tap_state.state) {
-        case TD_TAP:
-            register_code16(ES_LBRC);
-            break;
-        case TD_HOLD:
-            register_code16(ES_RBRC);
-            break;
-        case TD_NONE:
-            break;
-    }
-}
-
-void bracket_reset(qk_tap_dance_state_t *state, void *user_data) {
-    switch (tap_state.state) {
-        case TD_TAP:
-            unregister_code16(ES_LBRC);
-            break;
-        case TD_HOLD:
-            unregister_code16(ES_RBRC);
-            break;
-        case TD_NONE:
-            break;
-    }
-    tap_state.state = TD_NONE;
-}
-
-void brace_finished(qk_tap_dance_state_t *state, void *user_data) {
-    tap_state.state = cur_dance(state);
-    switch (tap_state.state) {
-        case TD_TAP:
-            register_code16(ES_LCBR);
-            break;
-        case TD_HOLD:
-            register_code16(ES_RCBR);
-            break;
-        case TD_NONE:
-            break;
-    }
-}
-
-void brace_reset(qk_tap_dance_state_t *state, void *user_data) {
-    switch (tap_state.state) {
-        case TD_TAP:
-            unregister_code16(ES_LCBR);
-            break;
-        case TD_HOLD:
-            unregister_code16(ES_RCBR);
-            break;
-        case TD_NONE:
-            break;
-    }
-    tap_state.state = TD_NONE;
-}
-
-// Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [BRKT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, bracket_finished, bracket_reset),
-    [BRCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, brace_finished, brace_reset)
+    KC_C_TAB_PREV,  // change tab window prev (shift+ctrl+tab),
+    KC_C_CBR,  // { and SHIFT({) = } 
+    KC_C_BRK,  // [ and SHIFT([) = ]
+    KC_C_PAR  // ( and SHIFT(() = )
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -167,11 +77,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |  !   |   "  |PRV_WPC|NXT_WPC|    |                    |    & |   /  |  (   |   )  |   =  |WRDDEL|
+ * |      |      |      |PRV_WPC|NXT_WPC|    |                    |   &  |   /  |  (   |   )  |   =  |WRDDEL|
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |      |      |KC_C_WINDOW| |-------.    ,-------|      |   <  |  {}  |  []  |  +*  |   ?  |
+ * |      |      |      |    |KC_C_WINDOW|   |-------.    ,-------|   !  |  <>  |  {}  |  []  |  +*  |   ?  |
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
- * |      |      | |KC_C_TAB_prev|KC_C_TAB|  |-------|    |-------|   `  |      |   ;  |   :  |   _  |      |
+ * |      |      | |KC_C_TAB_prev|KC_C_TAB|  |-------|    |-------|   `  |   "  |   ;  |   :  |   _  |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            |      |      |      |      | /       /       \      \  |      |  WDEL |      |      |
  *            |      |      |      |      |/       /         \      \ |      |       |      |      |
@@ -180,20 +90,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_LOWER] = LAYOUT(
   _______,  _______, _______, _______, _______ ,_______,                    _______,   _______,   _______,   _______, _______,  _______,
-  _______,  S(ES_1), S(ES_2),  PRV_WPC,    NXT_WPC, _______,                   S(ES_6),  S(ES_7)  , S(ES_8),  S(ES_9) ,  S(ES_0), WBSPC,
-  _______,  _______, _______,_______,KC_C_WINDOW, _______,                       _______, KC_NUBS, TD(BRCE), TD(BRKT), PLUS, S(ES_QUOT),
-  _______,  _______, _______,KC_C_TAB_PREV,KC_C_TAB, _______, _______,       _______, ES_GRV, _______, S(KC_COMM), S(KC_DOT), S(ES_MINS), _______,
+  _______,  _______, _______,  PRV_WPC,    NXT_WPC, _______,                   S(ES_6),  S(ES_7)  , KC_C_PAR,  S(ES_9) ,  S(ES_0), WBSPC,
+  _______,  _______, _______,_______,KC_C_WINDOW, _______,                        S(ES_1), KC_NUBS, KC_C_CBR, KC_C_BRK, PLUS, S(ES_QUOT),
+  _______,  _______, _______,KC_C_TAB_PREV,KC_C_TAB, _______, _______,       _______, ES_GRV, S(ES_2), S(KC_COMM), S(KC_DOT), S(ES_MINS), _______,
                        _______, _______, _______, _______, _______,       _______, MO(_RAISE), WDEL, _______, _______
 ),
 /* M_LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |  !   |   "  |PRV_WPC|NXT_WPC|    |                    |    & |   /  |  (   |   )  |   =  |WRDDEL|
+ * |      |      |      |PRV_WPC|NXT_WPC|    |                    |    & |   /  |  (   |  )   |   =  |WRDDEL|
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |      |    |KC_M_C_WINDOW| |-------.    ,-------|      |   <  |  {}  |  []  |  +*  |   ?  |
+ * |      |      |      |  |KC_M_C_WINDOW|   |-------.    ,-------|   !  |  <>  |  {}  |  []  |  +*  |   ?  |
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
- * |      |      | |KC_C_TAB_prev|KC_C_TAB|  |-------|    |-------|   `  |      |   ;  |   :  |   _  |      |
+ * |      |      | |KC_C_TAB_prev|KC_C_TAB|  |-------|    |-------|   `  |   "  |   ;  |   :  |   _  |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            |      |      |      |      | /       /       \      \  |      |  WDEL |      |      |
  *            |      |      |      |      |/       /         \      \ |      |       |      |      |
@@ -202,9 +112,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_M_LOWER] = LAYOUT(
   _______,  _______, _______, _______, _______ ,_______,                    _______,   _______,   _______,   _______, _______,  _______,
-  _______,  S(ES_1), S(ES_2),  PRV_WPC,    NXT_WPC, _______,                   S(ES_6),  S(ES_7)  , S(ES_8),  S(ES_9) ,  S(ES_0), M_WBSPC,
-  _______,  _______, _______,_______,KC_M_C_WINDOW, _______,                       _______, KC_GRV, TD(BRCE), TD(BRKT), PLUS, S(ES_QUOT),
-  _______,  _______, _______,KC_C_TAB_PREV,KC_C_TAB, _______, _______,       _______, ES_GRV, _______, S(KC_COMM), S(KC_DOT), S(ES_MINS), _______,
+  _______,  _______, _______,  PRV_WPC,    NXT_WPC, _______,                   S(ES_6),  S(ES_7)  , KC_C_PAR,  S(ES_9) ,  S(ES_0), M_WBSPC,
+  _______,  _______, _______,_______,KC_M_C_WINDOW, _______,                       S(ES_1), KC_GRV, KC_C_CBR, KC_C_BRK, PLUS, S(ES_QUOT),
+  _______,  _______, _______,KC_C_TAB_PREV,KC_C_TAB, _______, _______,       _______, ES_GRV, S(ES_2), S(KC_COMM), S(KC_DOT), S(ES_MINS), _______,
                        _______, _______, _______, _______, _______,       _______, MO(_M_RAISE), M_WDEL, _______, _______
 ),
 /* RAISE
@@ -428,6 +338,63 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_mods(MOD_LSFT);
             }
             break;
+        case KC_C_CBR:{
+                bool isShifted = get_mods() & MOD_MASK_SHIFT;
+                if (record->event.pressed) {
+                    if(isShifted) {
+                        del_mods(MOD_MASK_SHIFT);
+                        register_code16(ES_RCBR);
+                        register_code(KC_LSFT);
+                    } else {
+                        register_code16(ES_LCBR);
+                    }
+                } else {
+                    if(isShifted) {
+                        unregister_code16(ES_RCBR);
+                    } else {
+                        unregister_code16(ES_LCBR);
+                    }
+                }
+                break;
+            }
+        case KC_C_BRK:{
+                bool isShifted = get_mods() & MOD_MASK_SHIFT;
+                if (record->event.pressed) {
+                    if(isShifted) {
+                        del_mods(MOD_MASK_SHIFT);
+                        register_code16(ES_RBRC);
+                        register_code(KC_LSFT);
+                    } else {
+                        register_code16(ES_LBRC);
+                    }
+                } else {
+                    if(isShifted) {
+                        unregister_code16(ES_RBRC);
+                    } else {
+                        unregister_code16(ES_LBRC);
+                    }
+                }
+                break;
+            }
+        case KC_C_PAR:{
+                bool isShifted = get_mods() & MOD_MASK_SHIFT;
+                if (record->event.pressed) {
+                    if(isShifted) {
+                        del_mods(MOD_MASK_SHIFT);
+                        register_code16(ES_RPRN);
+                        register_code(KC_LSFT);
+                    } else {
+                        register_code16(ES_LPRN);
+                    }
+                } else {
+                    if(isShifted) {
+                        unregister_code16(ES_RPRN);
+                    } else {
+                        unregister_code16(ES_LPRN);
+                    }
+                }
+                break;
+            }
         case PLUS:
             if (!record->tap.count && record->event.pressed) {
                 tap_code16(KC_RCBR); // Intercept hold to send *

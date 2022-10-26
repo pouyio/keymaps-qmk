@@ -15,9 +15,9 @@ Adapted to **my** personal needs:
 - Modifiers only in left (CMD/Super, Alt/Opt, Ctrl)
 - Added more macros for both Mac and Linux/Win.
 - The OLED has less info.
-- Left encoder controls mute and next/prev track. Right encoder pause and .
+- Left encoder controls mute and next/prev track. Right encoder pause and volumne.
 - Layer tap in raise/lower buttons.
-- Hold tap for `}`, `]` and `*`.
+- Hold tap for `*`.
 - Caps lock tapping both shifts.
 
 

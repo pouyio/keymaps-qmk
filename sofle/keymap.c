@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT(
   XXXXXXX,XXXXXXX, XXXXXXX, XXXXXXX,XXXXXXX,XXXXXXX,                     XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
   LGUI_T(KC_TAB),KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_BSPC,
-  KC_LSFT, KC_A,  KC_S,  KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,  LGUI_T(KC_QUOT), LGUI_T(KC_QUOT),
+  KC_LSFT, KC_A,  KC_S,  KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,  LGUI_T(KC_QUOT), KC_QUOT,
   KC_LALT,LSFT_T(KC_Z),LALT_T(KC_X),  KC_C,   KC_V,   KC_B, KC_MUTE,     KC_MPLY,KC_N,    KC_M, KC_COMM,LALT_T(KC_DOT),RSFT_T(KC_SLSH),  KC_RSFT,
                  XXXXXXX,XXXXXXX,KC_LCTRL, LT(_LOWER, KC_ESC), KC_SPC,      KC_ENT, LT(_RAISE, ES_QUOT), KC_BSPC,    XXXXXXX, XXXXXXX
 ),
@@ -115,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,  KC_TAB, _______,  PRV_WPC,    NXT_WPC, _______,                   S(ES_6),  S(ES_7)  , KC_C_PAR,  S(ES_9) ,  S(ES_0), M_WBSPC,
   _______,  _______, _______,_______,KC_M_C_WINDOW, _______,                       S(ES_1), KC_GRV, KC_C_CBR, KC_C_BRK, PLUS, S(ES_QUOT),
   _______,  _______, _______,KC_C_TAB_PREV,KC_C_TAB, ES_GRV, _______,       _______, S(ES_QUOT), S(ES_2), S(KC_COMM), S(KC_DOT), S(ES_MINS), _______,
-                       _______, _______, _______, _______, _______,       _______, MO(_M_RAISE), M_WDEL, _______, _______
+                       _______, _______, _______, _______, _______,       _______, MO(_M_RAISE), M_WBSPC, _______, _______
 ),
 /* RAISE
  * ,----------------------------------------.                     ,-----------------------------------------.

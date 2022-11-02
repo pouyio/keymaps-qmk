@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,  _______, _______, _______, _______ ,_______,                    _______,   _______,   _______,   _______, _______,  _______,
   _______,  KC_TAB, _______,  PRV_WPC,    NXT_WPC, _______,                   S(ES_6),  S(ES_7)  , KC_C_PAR,  S(ES_9) ,  S(ES_0), WBSPC,
   _______,  _______, _______,_______,KC_C_WINDOW, _______,                        S(ES_1), KC_NUBS, KC_C_CBR, KC_C_BRK, PLUS, S(ES_QUOT),
-  _______,  _______, _______,KC_C_TAB_PREV,KC_C_TAB, ES_GRV, _______,       _______,S(ES_QUOT), S(ES_2), S(KC_COMM), S(KC_DOT), S(ES_MINS), _______,
+  _______,  KC_LSFT, _______,KC_C_TAB_PREV,KC_C_TAB, ES_GRV, _______,       _______,S(ES_QUOT), S(ES_2), S(KC_COMM), S(KC_DOT), S(ES_MINS), _______,
                        _______, _______, _______, _______, _______,       _______, MO(_RAISE), WBSPC, _______, _______
 ),
 /* M_LOWER

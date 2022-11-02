@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   LGUI_T(KC_TAB),KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_BSPC,
   KC_LSFT, KC_A,  KC_S,  KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,  LGUI_T(KC_QUOT), KC_QUOT,
   KC_LALT,LSFT_T(KC_Z),LALT_T(KC_X),  KC_C,   KC_V,   KC_B, KC_MUTE,     KC_MPLY,KC_N,    KC_M, KC_COMM,LALT_T(KC_DOT),RSFT_T(KC_SLSH),  KC_RSFT,
-                 XXXXXXX,XXXXXXX,LCTL_T(KC_ESC), LT(_LOWER, KC_TAB), KC_SPC,      KC_ENT, LT(_RAISE, ES_QUOT), KC_BSPC,    XXXXXXX, XXXXXXX
+                 XXXXXXX,XXXXXXX,LCTL_T(KC_ESC), LT(_LOWER, KC_TAB), KC_SPC,      KC_ENT, LT(_RAISE, KC_DELETE), KC_BSPC,    XXXXXXX, XXXXXXX
 ),
 /*
  * M_QWERTY
@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   LCTL_T(KC_TAB),   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_BSPC,
   KC_LSFT,  KC_A,  KC_S,  KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L, LCTL_T(KC_QUOT), KC_QUOT,
   KC_LALT,LSFT_T(KC_Z),LALT_T(KC_X),  KC_C,   KC_V,   KC_B, KC_MUTE,     KC_MPLY,KC_N,    KC_M, KC_COMM,LALT_T(KC_DOT), RSFT_T(KC_SLSH),  KC_RSFT,
-                 XXXXXXX,XXXXXXX, LGUI_T(KC_ESC), LT(_M_LOWER, KC_TAB), KC_SPC,      KC_ENT,   LT(_M_RAISE, ES_QUOT), KC_BSPC,    XXXXXXX, XXXXXXX
+                 XXXXXXX,XXXXXXX, LGUI_T(KC_ESC), LT(_M_LOWER, KC_TAB), KC_SPC,      KC_ENT,   LT(_M_RAISE, KC_DELETE), KC_BSPC,    XXXXXXX, XXXXXXX
 ),
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -91,9 +91,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = LAYOUT(
   _______,  _______, _______, _______, _______ ,_______,                    _______,   _______,   _______,   _______, _______,  _______,
   _______,  KC_TAB, _______,  PRV_WPC,    NXT_WPC, _______,                   S(ES_6),  S(ES_7)  , KC_C_PAR,  S(ES_9) ,  S(ES_0), WBSPC,
-  _______,  _______, _______,_______,KC_C_WINDOW, _______,                        S(ES_1), KC_NUBS, KC_C_CBR, KC_C_BRK, PLUS, S(ES_QUOT),
+  _______,  _______, _______,_______,KC_C_WINDOW, ES_QUOT,                        S(ES_1), KC_NUBS, KC_C_CBR, KC_C_BRK, PLUS, S(ES_QUOT),
   _______,  KC_LSFT, _______,KC_C_TAB_PREV,KC_C_TAB, ES_GRV, _______,       _______,S(ES_QUOT), S(ES_2), S(KC_COMM), S(KC_DOT), S(ES_MINS), _______,
-                       _______, _______, _______, _______, _______,       _______, MO(_RAISE), WBSPC, _______, _______
+                       _______, _______, _______, _______, _______,       _______, LT(_RAISE, KC_DELETE), WBSPC, _______, _______
 ),
 /* M_LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -113,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_M_LOWER] = LAYOUT(
   _______,  _______, _______, _______, _______ ,_______,                    _______,   _______,   _______,   _______, _______,  _______,
   _______,  KC_TAB, _______,  PRV_WPC,    NXT_WPC, _______,                   S(ES_6),  S(ES_7)  , KC_C_PAR,  S(ES_9) ,  S(ES_0), M_WBSPC,
-  _______,  _______, _______,_______,KC_M_C_WINDOW, _______,                       S(ES_1), KC_GRV, KC_C_CBR, KC_C_BRK, PLUS, S(ES_QUOT),
+  _______,  _______, _______,_______,KC_M_C_WINDOW, ES_QUOT,                       S(ES_1), KC_GRV, KC_C_CBR, KC_C_BRK, PLUS, S(ES_QUOT),
   _______,  KC_LSFT, _______,KC_C_TAB_PREV,KC_C_TAB, ES_GRV, _______,       _______, S(ES_QUOT), S(ES_2), S(KC_COMM), S(KC_DOT), S(ES_MINS), _______,
                        _______, _______, _______, _______, _______,       _______, MO(_M_RAISE), M_WBSPC, _______, _______
 ),
@@ -176,7 +176,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  ALGR(ES_NTIL) no va en windows, sólo en linux
   [_ADJUST] = LAYOUT(
   XXXXXXX , XXXXXXX,  XXXXXXX ,  XXXXXXX , XXXXXXX, XXXXXXX,                  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  RESET   , KC_EQL,KC_QWERTY, ALGR(ES_E),XXXXXXX,XXXXXXX,                    XXXXXXX, KC_7,     KC_8,     KC_9,    KC_0, KC_BSPC,
+  RESET   , KC_EQL,KC_QWERTY, ALGR(ES_E),XXXXXXX,KC_PLUS,                    XXXXXXX, KC_7,     KC_8,     KC_9,    KC_0, KC_BSPC,
   XXXXXXX , ALGR(ES_MORD), KC_M_QWERTY, XXXXXXX, XXXXXXX,  XXXXXXX,          XXXXXXX, KC_4,     KC_5,     KC_6, ALGR(ES_NTIL), KC_PLUS,
   XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX,ES_NTIL,KC_1,     KC_2,     KC_3, XXXXXXX, _______,
                    _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______

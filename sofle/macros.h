@@ -16,3 +16,5 @@
 #define M_WBSPC LALT(KC_BSPC)
 #define M_NXTWD LALT(KC_RIGHT)
 #define M_PRVWD LALT(KC_LEFT)
+#define M_HOME RCMD(KC_LEFT)
+#define M_END RCMD(KC_RIGHT)

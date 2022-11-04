@@ -91,8 +91,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = LAYOUT(
   _______,  _______, _______, _______, _______ ,_______,                    _______,   _______,   _______,   _______, _______,  _______,
   _______,  KC_TAB, _______,  PRV_WPC,    NXT_WPC, _______,                   S(ES_6),  S(ES_7)  , KC_C_PAR,  S(ES_9) ,  S(ES_0), WBSPC,
-  _______,  _______, _______,_______,KC_C_WINDOW, ES_QUOT,                        S(ES_1), KC_NUBS, KC_C_CBR, KC_C_BRK, PLUS, S(ES_QUOT),
-  _______,  KC_LSFT, _______,KC_C_TAB_PREV,KC_C_TAB, ES_GRV, _______,       _______,S(ES_QUOT), S(ES_2), S(KC_COMM), S(KC_DOT), S(ES_MINS), _______,
+  _______,  _______, _______,_______,KC_C_WINDOW, ES_QUOT,                        S(ES_1), KC_NUBS, KC_C_CBR, KC_C_BRK, S(ES_QUOT), S(ES_QUOT),
+  _______,  KC_LSFT, _______,KC_C_TAB_PREV,KC_C_TAB, ES_GRV, _______,       _______,PLUS, S(ES_2), S(KC_COMM), S(KC_DOT), S(ES_MINS), _______,
                        _______, _______, _______, _______, _______,       _______, LT(_RAISE, KC_DELETE), WBSPC, _______, _______
 ),
 /* M_LOWER
@@ -113,8 +113,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_M_LOWER] = LAYOUT(
   _______,  _______, _______, _______, _______ ,_______,                    _______,   _______,   _______,   _______, _______,  _______,
   _______,  KC_TAB, _______,  PRV_WPC,    NXT_WPC, _______,                   S(ES_6),  S(ES_7)  , KC_C_PAR,  S(ES_9) ,  S(ES_0), M_WBSPC,
-  _______,  _______, _______,_______,KC_M_C_WINDOW, ES_QUOT,                       S(ES_1), KC_GRV, KC_C_CBR, KC_C_BRK, PLUS, S(ES_QUOT),
-  _______,  KC_LSFT, _______,KC_C_TAB_PREV,KC_C_TAB, ES_GRV, _______,       _______, S(ES_QUOT), S(ES_2), S(KC_COMM), S(KC_DOT), S(ES_MINS), _______,
+  _______,  _______, _______,_______,KC_M_C_WINDOW, ES_QUOT,                       S(ES_1), KC_GRV, KC_C_CBR, KC_C_BRK, S(ES_QUOT), S(ES_QUOT),
+  _______,  KC_LSFT, _______,KC_C_TAB_PREV,KC_C_TAB, ES_GRV, _______,       _______, PLUS, S(ES_2), S(KC_COMM), S(KC_DOT), S(ES_MINS), _______,
                        _______, _______, _______, _______, _______,       _______, MO(_M_RAISE), M_WBSPC, _______, _______
 ),
 /* RAISE
@@ -416,6 +416,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         //     return true;
     }
     return true;
+}
+
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case RSFT_T(KC_SLSH):
+            // Do not select the hold action when another key is pressed.
+            return false;
+        default:
+            // Immediately select the hold action when another key is pressed.
+            return true;
+    }
 }
 
 #ifdef ENCODER_ENABLE

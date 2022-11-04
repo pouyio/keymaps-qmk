@@ -19,4 +19,4 @@ for more options.
 //   |       | KC_L         |    |        |
 //   |       +--------------+    |        |
 //   +---------------------------|--------+
-#define HOLD_ON_OTHER_KEY_PRESS
+#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY

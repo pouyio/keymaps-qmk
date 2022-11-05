@@ -1,6 +1,7 @@
 
-OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
+# OLED_ENABLE = yes
+# OLED_DRIVER = SSD1306
 ENCODER_ENABLE = yes
 CONSOLE_ENABLE = no
-EXTRAKEY_ENABLE = yes
+EXTRAKEY_ENABLE = yes # Audio control and System control
+MOUSEKEY_ENABLE	= yes # Mouse keys

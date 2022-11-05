@@ -15,13 +15,13 @@ Adapted to **my** personal needs:
 - Easier transition from iso-es layout.
 - Same shortcuts among mac/lin/win.
 
-## Feature changes:
+## Features (mix sofle and miryoku):
 
 - Shift/Alt mod tap in base row, both sides.
-- Added more macros for both Mac and Linux/Win.
-- The OLED has less info.
+- Added macros for both Mac and Linux/Win (alt+tab, change workspace, change tab).
 - Left encoder controls mute and next/prev track. Right encoder pause and volumne.
 - Layer tap in raise/lower buttons.
+- Mouse layer.
 - Caps lock tapping both shifts.
 
 ## Install

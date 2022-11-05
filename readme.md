@@ -26,3 +26,5 @@ Execute `qmk setup -H ./qmk_firmware` to install all qmk dependencies pointing t
 
 ## Run
 Execute `make sofle`
+
+Note: if changes are made in `config.h` then intermediate folders must be deleteb before compiling again.

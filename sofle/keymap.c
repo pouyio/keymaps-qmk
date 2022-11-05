@@ -420,6 +420,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case LGUI_T(KC_QUOT):
+        case LCTL_T(KC_QUOT):
+        case LSFT_T(KC_Z):
+        case LALT_T(KC_X):
+        case LALT_T(KC_DOT):
         case RSFT_T(KC_SLSH):
             // Do not select the hold action when another key is pressed.
             return false;

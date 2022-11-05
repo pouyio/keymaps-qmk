@@ -20,3 +20,5 @@ for more options.
 //   |       +--------------+    |        |
 //   +---------------------------|--------+
 #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+
+#define IGNORE_MOD_TAP_INTERRUPT

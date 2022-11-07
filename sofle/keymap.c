@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                            KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, XXXXXXX,
   XXXXXXX,  KC_A,  KC_S,  KC_D,    KC_F,    KC_G,                                KC_H,    KC_J,    KC_K,    KC_L, LCTL_T(KC_QUOT),XXXXXXX,
   XXXXXXX,LSFT_T(KC_Z),LALT_T(KC_X),  KC_C,   KC_V,   KC_B, KC_MUTE,    KC_MPLY, KC_N,    KC_M, KC_COMM,LALT_T(KC_DOT), RSFT_T(KC_SLSH),XXXXXXX,
-  XXXXXXX, XXXXXXX,LGUI_T(KC_ESC),LT(_M_LOWER, KC_TAB),LT(_MOUSE, KC_SPC),KC_ENT,LT(_RAISE, KC_BSPC),  KC_DELETE, XXXXXXX, XXXXXXX
+  XXXXXXX, XXXXXXX,LGUI_T(KC_ESC),LT(_M_LOWER, KC_TAB),LT(_MOUSE, KC_SPC),KC_ENT,LT(_M_RAISE, KC_BSPC),  KC_DELETE, XXXXXXX, XXXXXXX
 ),
 [_LOWER] = LAYOUT(
   _______, _______, _______, _______, _______ ,_______,                     _______, _______, _______, _______, _______, _______,
@@ -308,9 +308,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return true;
         case LT(_RAISE, KC_NO):
-        case LT(_M_RAISE, KC_NO):
             if(record->tap.count && record->event.pressed) {
                 tap_code16(WBSPC);
+                return false;
+            }
+            return true;
+        case LT(_M_RAISE, KC_NO):
+            if(record->tap.count && record->event.pressed) {
+                tap_code16(M_WBSPC);
                 return false;
             }
             return true;

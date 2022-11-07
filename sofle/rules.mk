@@ -4,4 +4,3 @@
 ENCODER_ENABLE = yes
 CONSOLE_ENABLE = no
 EXTRAKEY_ENABLE = yes # Audio control and System control
-MOUSEKEY_ENABLE	= yes # Mouse keys

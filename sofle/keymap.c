@@ -13,7 +13,6 @@ enum sofle_layers {
     _RAISE,
     _M_RAISE,
     _ADJUST,
-    _MOUSE,
 };
 
 // KC_NUBS or KC_GRV custom less than: < due to bug mac/linux not using the same key
@@ -35,27 +34,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                          KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, XXXXXXX,
   XXXXXXX,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                          KC_H,    KC_J,    KC_K,    KC_L,  LGUI_T(KC_QUOT), XXXXXXX,
   XXXXXXX,LSFT_T(KC_Z),LALT_T(KC_X),KC_C,KC_V,    KC_B, KC_MUTE,        KC_MPLY, KC_N,    KC_M, KC_COMM,LALT_T(KC_DOT),RSFT_T(KC_SLSH),XXXXXXX,
-  XXXXXXX, XXXXXXX,LCTL_T(KC_ESC),LT(_LOWER, KC_TAB),LT(_MOUSE, KC_SPC), KC_ENT,LT(_RAISE, KC_BSPC),KC_DELETE,    XXXXXXX, XXXXXXX
+  XXXXXXX, XXXXXXX,LCTL_T(KC_ESC),LT(_LOWER, KC_TAB),KC_SPC, KC_ENT,LT(_RAISE, KC_BSPC),KC_DELETE,    XXXXXXX, XXXXXXX
 ),
 [_M_QWERTY] = LAYOUT(
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                            KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, XXXXXXX,
   XXXXXXX,  KC_A,  KC_S,  KC_D,    KC_F,    KC_G,                                KC_H,    KC_J,    KC_K,    KC_L, LCTL_T(KC_QUOT),XXXXXXX,
   XXXXXXX,LSFT_T(KC_Z),LALT_T(KC_X),  KC_C,   KC_V,   KC_B, KC_MUTE,    KC_MPLY, KC_N,    KC_M, KC_COMM,LALT_T(KC_DOT), RSFT_T(KC_SLSH),XXXXXXX,
-  XXXXXXX, XXXXXXX,LGUI_T(KC_ESC),LT(_M_LOWER, KC_TAB),LT(_MOUSE, KC_SPC),KC_ENT,LT(_M_RAISE, KC_BSPC),  KC_DELETE, XXXXXXX, XXXXXXX
+  XXXXXXX, XXXXXXX,LGUI_T(KC_ESC),LT(_M_LOWER, KC_TAB),KC_SPC,KC_ENT,LT(_M_RAISE, KC_BSPC),  KC_DELETE, XXXXXXX, XXXXXXX
 ),
 [_LOWER] = LAYOUT(
   _______, _______, _______, _______, _______ ,_______,                     _______, _______, _______, _______, _______, _______,
   _______,  KC_TAB, _______, PRV_WPC, NXT_WPC, _______,                     S(ES_6), S(ES_7),KC_C_PAR, S(ES_9), S(ES_0), _______,
   _______, _______, _______, _______,KC_C_WINDOW,ES_QUOT,                   S(ES_1),KC_NUBS,KC_C_CBR,KC_C_BRK,S(ES_QUOT),_______,
-  _______, KC_LSFT, _______,KC_C_TAB_PREV,KC_C_TAB,ES_GRV,_______,  _______,PLUS,S(ES_2),S(KC_COMM),S(KC_DOT),S(ES_MINS),_______,
-                    _______, _______, _______, _______, _______,    _______, LT(_RAISE, KC_NO),WDEL,_______, _______
+  _______, KC_LSFT, _______,KC_C_TAB_PREV,KC_C_TAB,ES_GRV,_______,  _______,KC_RBRC,S(ES_2),S(KC_COMM),S(KC_DOT),S(ES_MINS),_______,
+                    _______, _______, _______, _______, _______,    _______, LT(_RAISE, KC_BSPC),WDEL,_______, _______
 ),
 [_M_LOWER] = LAYOUT(
   _______, _______, _______, _______, _______ ,_______,                     _______, _______, _______, _______, _______, _______,
   _______,  KC_TAB, _______, PRV_WPC,  NXT_WPC, _______,                    S(ES_6), S(ES_7),KC_C_PAR, S(ES_9), S(ES_0), _______,
   _______, _______, _______, _______,KC_M_C_WINDOW,ES_QUOT,                 S(ES_1),KC_GRV,KC_C_CBR,KC_C_BRK,S(ES_QUOT), _______,
-  _______, KC_LSFT, _______,KC_C_TAB_PREV,KC_C_TAB,ES_GRV, _______,  _______,PLUS,S(ES_2),S(KC_COMM),S(KC_DOT),S(ES_MINS), _______,
+  _______, KC_LSFT, _______,KC_C_TAB_PREV,KC_C_TAB,ES_GRV, _______,  _______,KC_RBRC,S(ES_2),S(KC_COMM),S(KC_DOT),S(ES_MINS), _______,
                     _______, _______, _______, _______, _______,     _______,LT(_M_RAISE, KC_NO),M_WDEL,_______,_______
 ),
 [_RAISE] = LAYOUT(
@@ -79,13 +78,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX,ALGR(ES_MORD),KC_M_QWERTY,XXXXXXX,XXXXXXX,XXXXXXX,                 XXXXXXX,    KC_4,    KC_5,    KC_6,ALGR(ES_NTIL),XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, ES_NTIL,    KC_1,    KC_2,    KC_3, XXXXXXX, XXXXXXX,
                     _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______
-  ),
-[_MOUSE] = LAYOUT(
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, KC_MS_U, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                    _______, _______, _______, _______, _______,     KC_BTN1, KC_BTN2, KC_BTN3, _______, _______
   )
 };
 
@@ -301,12 +293,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
                 break;
             }
-        case PLUS:
-            if (!record->tap.count && record->event.pressed) {
-                tap_code16(KC_RCBR); // Intercept hold to send *
-                return false;
-            }
-            return true;
         case LT(_RAISE, KC_NO):
             if(record->tap.count && record->event.pressed) {
                 tap_code16(WBSPC);
@@ -331,12 +317,20 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
         case LALT_T(KC_X):
         case LALT_T(KC_DOT):
         case RSFT_T(KC_SLSH):
-        case LT(_MOUSE, KC_SPC):
             // Do not select the hold action when another key is pressed.
             return false;
         default:
             // Immediately select the hold action when another key is pressed.
             return true;
+    }
+}
+
+bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case RSFT_T(KC_SLSH):
+            return true;
+        default:
+            return false;
     }
 }
 

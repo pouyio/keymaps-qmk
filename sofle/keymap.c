@@ -4,6 +4,13 @@
 
 bool is_kc_window_active = false;
 
+enum combos {
+  Q_SUPER,
+  COMBO_LENGTH  
+};
+
+uint16_t COMBO_LEN = COMBO_LENGTH;
+
 enum sofle_layers {
     /* _M_XYZ = Mac Os, _W_XYZ = Win/Linux */
     _QWERTY,
@@ -28,18 +35,25 @@ enum custom_keycodes {
     KC_C_PAR  // ( and SHIFT(() = )
 };
 
+
+const uint16_t PROGMEM combo_super[] = {KC_Q, KC_W, COMBO_END};
+
+combo_t key_combos[] = {
+    [Q_SUPER] = COMBO_ACTION(combo_super),
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT(
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                          KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, XXXXXXX,
-  XXXXXXX,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                          KC_H,    KC_J,    KC_K,    KC_L,  LGUI_T(KC_QUOT), XXXXXXX,
+  XXXXXXX,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                          KC_H,    KC_J,    KC_K,    KC_L, KC_QUOT, XXXXXXX,
   XXXXXXX,LSFT_T(KC_Z),LALT_T(KC_X),KC_C,KC_V,    KC_B, KC_MUTE,        KC_MPLY, KC_N,    KC_M, KC_COMM,LALT_T(KC_DOT),RSFT_T(KC_SLSH),XXXXXXX,
   XXXXXXX, XXXXXXX,LCTL_T(KC_ESC),LT(_LOWER, KC_TAB),KC_SPC, KC_ENT,LT(_RAISE, KC_BSPC),KC_DELETE,    XXXXXXX, XXXXXXX
 ),
 [_M_QWERTY] = LAYOUT(
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                            KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, XXXXXXX,
-  XXXXXXX,  KC_A,  KC_S,  KC_D,    KC_F,    KC_G,                                KC_H,    KC_J,    KC_K,    KC_L, LCTL_T(KC_QUOT),XXXXXXX,
+  XXXXXXX,  KC_A,  KC_S,  KC_D,    KC_F,    KC_G,                                KC_H,    KC_J,    KC_K,    KC_L, KC_QUOT, XXXXXXX,
   XXXXXXX,LSFT_T(KC_Z),LALT_T(KC_X),  KC_C,   KC_V,   KC_B, KC_MUTE,    KC_MPLY, KC_N,    KC_M, KC_COMM,LALT_T(KC_DOT), RSFT_T(KC_SLSH),XXXXXXX,
   XXXXXXX, XXXXXXX,LGUI_T(KC_ESC),LT(_M_LOWER, KC_TAB),KC_SPC,KC_ENT,LT(_M_RAISE, KC_BSPC),  KC_DELETE, XXXXXXX, XXXXXXX
 ),
@@ -307,6 +321,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return true;
     }
     return true;
+}
+
+void process_combo_event(uint16_t combo_index, bool pressed) {
+  switch(combo_index) {
+    case Q_SUPER:
+      if (pressed) {
+        if (get_highest_layer(default_layer_state) == _QWERTY) {
+            register_code(KC_LGUI);
+        } else {
+            register_code(KC_LCTL);
+        }
+      } else {
+        if (get_highest_layer(default_layer_state) == _QWERTY) {
+            unregister_code(KC_LGUI);
+        } else {
+            unregister_code(KC_LCTL);
+        }
+      }
+      break;
+  }
 }
 
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {

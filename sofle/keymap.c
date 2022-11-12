@@ -32,7 +32,8 @@ enum custom_keycodes {
     KC_C_TAB_PREV,  // change tab window prev (shift+ctrl+tab),
     KC_C_CBR,  // { and SHIFT({) = } 
     KC_C_BRK,  // [ and SHIFT([) = ]
-    KC_C_PAR  // ( and SHIFT(() = )
+    KC_C_PAR,  // ( and SHIFT(() = )
+    KC_VIRG // ~
 };
 
 
@@ -89,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = LAYOUT(
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, KC_EQL,KC_QWERTY,ALGR(ES_E),XXXXXXX,KC_PLUS,                      XXXXXXX,    KC_7,    KC_8,    KC_9,    KC_0, XXXXXXX,
-  XXXXXXX,ALGR(ES_MORD),KC_M_QWERTY,XXXXXXX,XXXXXXX,XXXXXXX,                 XXXXXXX,    KC_4,    KC_5,    KC_6,ALGR(ES_NTIL),XXXXXXX,
+  XXXXXXX,ALGR(ES_MORD),KC_M_QWERTY,XXXXXXX,XXXXXXX,XXXXXXX,                 XXXXXXX,    KC_4,    KC_5,    KC_6, KC_VIRG, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, ES_NTIL,    KC_1,    KC_2,    KC_3, XXXXXXX, XXXXXXX,
                     _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______
   )
@@ -236,6 +237,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (!record->tap.count && record->event.pressed) {
                 tap_code16(ES_NTIL); // Intercept hold to send ñ
                 return false;
+            }
+            return true;
+        case KC_VIRG:
+            if (record->event.pressed) {
+                if (get_highest_layer(default_layer_state) == _QWERTY) {
+                    tap_code16(ALGR(KC_4));
+                    tap_code(KC_SPC);
+                } else {
+                    tap_code16(ALGR(ES_NTIL));
+                }
             }
             return true;
         case LT(_RAISE, KC_NO):

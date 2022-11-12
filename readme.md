@@ -6,22 +6,20 @@
 
 [QMK official docs](https://docs.qmk.fm/#/)
 
-
 **Removed top, side rows and some bottom keys**, resulting in 5x3+3.
 
 Adapted to **my** personal needs:
 
 - Coding
-- Easier transition from iso-es layout.
+- iso-es layout.
 - Same shortcuts among mac/lin/win.
 
 ## Features (mix sofle and miryoku):
 
 - Shift/Alt mod tap in base row, both sides.
-- Added macros for both Mac and Linux/Win (alt+tab, change workspace, change tab).
+- Added macros for both Mac and Linux/Win (change workspace, change tab).
 - Left encoder controls mute and next/prev track. Right encoder pause and volumne.
 - Layer tap in raise/lower buttons.
-- Mouse layer.
 - Caps lock tapping both shifts.
 
 ## Install

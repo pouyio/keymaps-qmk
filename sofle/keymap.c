@@ -26,8 +26,7 @@ enum sofle_layers {
 enum custom_keycodes {
     KC_QWERTY = SAFE_RANGE,
     KC_M_QWERTY,
-    KC_C_WINDOW,   // change window (win: alt+tab)
-    KC_M_C_WINDOW, // change window (mac: gui+tab)
+    KC_C_WINDOW,   // change window (alt+tab)
     KC_C_TAB,      // change tab (ctrl+tab)
     KC_C_TAB_PREV,  // change tab window prev (shift+ctrl+tab),
     KC_C_CBR,  // { and SHIFT({) = } 
@@ -60,16 +59,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX, XXXXXXX,LGUI_T(KC_ESC),LT(_M_LOWER, KC_TAB),KC_SPC,KC_ENT,LT(_M_RAISE, KC_BSPC),  KC_DELETE, XXXXXXX, XXXXXXX
 ),
 [_LOWER] = LAYOUT(
-  _______, _______, _______, _______, _______ ,_______,                     _______, _______, _______, _______, _______, _______,
-  _______,  KC_TAB, _______, PRV_WPC, NXT_WPC, _______,                     S(ES_6), S(ES_7),KC_C_PAR, S(ES_9), S(ES_0), _______,
-  _______, _______, _______, _______,KC_C_WINDOW,ES_QUOT,                   S(ES_1),KC_NUBS,KC_C_CBR,KC_C_BRK,S(ES_QUOT),_______,
+  _______, _______, _______, _______, _______ , _______,                     _______, _______, _______, _______, _______, _______,
+  _______,  KC_TAB, _______, PRV_WPC,  NXT_WPC, _______,                     S(ES_6), S(ES_7),KC_C_PAR, S(ES_9), S(ES_0), _______,
+  _______, _______, _______, _______,KC_C_WINDOW,ES_QUOT,                    S(ES_1), KC_NUBS,KC_C_CBR,KC_C_BRK,S(ES_QUOT),_______,
   _______, KC_LSFT, _______,KC_C_TAB_PREV,KC_C_TAB,ES_GRV,_______,  _______,KC_RBRC,S(ES_2),S(KC_COMM),S(KC_DOT),S(ES_MINS),_______,
                     _______, _______, _______, _______, _______,    _______, LT(_RAISE, KC_NO),WDEL,_______, _______
 ),
 [_M_LOWER] = LAYOUT(
-  _______, _______, _______, _______, _______ ,_______,                     _______, _______, _______, _______, _______, _______,
-  _______,  KC_TAB, _______, PRV_WPC,  NXT_WPC, _______,                    S(ES_6), S(ES_7),KC_C_PAR, S(ES_9), S(ES_0), _______,
-  _______, _______, _______, _______,KC_M_C_WINDOW,ES_QUOT,                 S(ES_1),KC_GRV,KC_C_CBR,KC_C_BRK,S(ES_QUOT), _______,
+  _______, _______, _______, _______, _______ , _______,                     _______, _______, _______, _______, _______, _______,
+  _______,  KC_TAB, _______, PRV_WPC,  NXT_WPC, _______,                     S(ES_6), S(ES_7),KC_C_PAR, S(ES_9), S(ES_0), _______,
+  _______, _______, _______, _______,KC_C_WINDOW,ES_QUOT,                  S(ES_1),KC_GRV,KC_C_CBR,KC_C_BRK,S(ES_QUOT), _______,
   _______, KC_LSFT, _______,KC_C_TAB_PREV,KC_C_TAB,ES_GRV, _______,  _______,KC_RBRC,S(ES_2),S(KC_COMM),S(KC_DOT),S(ES_MINS), _______,
                     _______, _______, _______, _______, _______,     _______,LT(_M_RAISE, KC_NO),M_WDEL,_______,_______
 ),
@@ -120,6 +119,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if ((get_mods() & MOD_MASK_SHIFT) == MOD_MASK_SHIFT) {
         tap_code(KC_CAPS);
     }
+    bool isWin = get_highest_layer(default_layer_state) == _QWERTY;
     switch (keycode) {
         case KC_QWERTY:
             if (record->event.pressed) {
@@ -132,17 +132,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
         case KC_C_WINDOW:
-            if (record->event.pressed) {
-                if (!is_kc_window_active) {
-                    is_kc_window_active = true;
-                    register_code(KC_LALT);
-                }
-                register_code(KC_TAB);
-            } else {
-                unregister_code(KC_TAB);
-            }
-            break;
-        case KC_M_C_WINDOW:
             if (record->event.pressed) {
                 if (!is_kc_window_active) {
                     is_kc_window_active = true;
@@ -242,7 +231,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return true;
         case KC_VIRG:
             if (record->event.pressed) {
-                if (get_highest_layer(default_layer_state) == _QWERTY) {
+                if (isWin) {
                     tap_code16(ALGR(KC_4));
                     tap_code(KC_SPC);
                 } else {
@@ -252,7 +241,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return true;
         case C_BSLS:
             if (record->event.pressed) {
-                if (get_highest_layer(default_layer_state) == _QWERTY) {
+                if (isWin) {
                     tap_code16(ALGR(ES_MORD));
                 } else {
                     tap_code16(LALT(KC_GRV));

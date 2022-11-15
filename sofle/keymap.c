@@ -231,6 +231,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (isWin) {
                     register_code16(ALGR(ES_MORD));
                 } else {
+                    // not working
                     register_code16(LALT(KC_GRV));
                 }
             } else {
@@ -374,10 +375,8 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case LSFT_T(KC_Z):
         case LALT_T(KC_X):
         case LALT_T(KC_DOT):
-        case RSFT_T(KC_SLSH):
         case PLUS:
             // Do not select the hold action when another key is pressed.
             return false;

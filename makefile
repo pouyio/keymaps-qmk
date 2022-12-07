@@ -1,7 +1,8 @@
 USER = pouyio
 
-KEYBOARDS = sofle
+KEYBOARDS = sofle crkbd
 PATH_sofle = sofle
+PATH_crkbd = crkbd
 
 all: $(KEYBOARDS)
 

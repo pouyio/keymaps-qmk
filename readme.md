@@ -1,6 +1,7 @@
 # Custom 36 keymap for corne/sofle Keyboard
 
-[![corne Keyboard custom keymap](https://api.microlink.io/?url=http%3A%2F%2Fwww.keyboard-layout-editor.com%2F%23%2Fgists%2Fbf533ff812829bf261ab7ea44d985077&screenshot=true&meta=false&embed=screenshot.url&element=%23keyboard-bg)](http://www.keyboard-layout-editor.com/#/gists/bf533ff812829bf261ab7ea44d985077)
+[![corne Keyboard custom keymap](https://user-images.githubusercontent.com/5225417/216134626-eb6801a5-ede3-4f1e-8ce3-920244ee02ef.png
+)](http://www.keyboard-layout-editor.com/#/gists/bf533ff812829bf261ab7ea44d985077)
 
 [QMK official docs](https://docs.qmk.fm/#/)
 

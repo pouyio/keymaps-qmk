@@ -1,7 +1,6 @@
 # Custom 36 keymap for corne/sofle Keyboard
 
-[![corne Keyboard custom keymap](https://user-images.githubusercontent.com/5225417/216134626-eb6801a5-ede3-4f1e-8ce3-920244ee02ef.png
-)](http://www.keyboard-layout-editor.com/#/gists/bf533ff812829bf261ab7ea44d985077)
+[![corne Keyboard custom keymap](https://user-images.githubusercontent.com/5225417/216134626-eb6801a5-ede3-4f1e-8ce3-920244ee02ef.png)](http://www.keyboard-layout-editor.com/#/gists/bf533ff812829bf261ab7ea44d985077)
 
 [QMK official docs](https://docs.qmk.fm/#/)
 
@@ -20,6 +19,7 @@ Adapted to **my** personal needs:
 - Left encoder controls mute and next/prev track. Right encoder pause and volumne.
 - Layer tap in raise/lower buttons.
 - Caps lock tapping both shifts.
+- Only sofle: [Gaming layers for left half](./sofle/README.md).
 
 ## Install
 

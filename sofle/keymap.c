@@ -15,7 +15,9 @@ enum sofle_layers {
     /* _M_XYZ = Mac Os, _W_XYZ = Win/Linux */
     _QWERTY,
     _M_QWERTY,
+    _GAME,
     _LOWER,
+    _G_LOWER,
     _RAISE,
     _ADJUST,
 };
@@ -24,6 +26,7 @@ enum sofle_layers {
 enum custom_keycodes {
     KC_QWERTY = SAFE_RANGE,
     KC_M_QWERTY,
+    KC_GAME,       // toggle game layer
     KC_C_WINDOW,   // change window (alt+tab)
     KC_C_TAB,      // change tab (ctrl+tab)
     KC_C_TAB_PREV,  // change tab window prev (shift+ctrl+tab),
@@ -62,12 +65,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX,LSFT_T(KC_Z),LALT_T(KC_X),  KC_C,   KC_V,   KC_B, KC_MUTE,    KC_MPLY, KC_N,    KC_M, KC_COMM,LALT_T(KC_DOT), RSFT_T(KC_SLSH),XXXXXXX,
   XXXXXXX, XXXXXXX,LGUI_T(KC_ESC),LT(_LOWER, KC_TAB),KC_SPC,KC_ENT,LT(_RAISE, KC_BSPC),  KC_DELETE, XXXXXXX, XXXXXXX
 ),
+[_GAME] = LAYOUT(
+  KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  KC_LSFT,  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  KC_LCTRL, KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE,    XXXXXXX,XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                 KC_LGUI,KC_ENT,KC_LALT, MO(_G_LOWER), KC_SPC,      XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+),
 [_LOWER] = LAYOUT(
   _______, _______, _______, _______, _______ , _______,                     _______, _______, _______, _______, _______, _______,
-  _______, KC_VOLU, KC_MUTE, PRV_WPC,  NXT_WPC, _______,                     S(ES_6), S(ES_7),KC_C_PAR, S(ES_9), S(ES_0), _______,
-  _______, KC_VOLD, KC_MPLY, _______,KC_C_WINDOW,ES_QUOT,                    S(ES_1),   C_LST,KC_C_CBR,KC_C_BRK,S(ES_QUOT),_______,
+  _______, KC_VOLU, KC_MUTE, PRV_WPC,  NXT_WPC, KC_GAME,                     S(ES_6), S(ES_7),KC_C_PAR, S(ES_9), S(ES_0), _______,
+  _______, KC_VOLD, KC_MPLY, S(KC_TAB),KC_C_WINDOW,ES_QUOT,                    S(ES_1),   C_LST,KC_C_CBR,KC_C_BRK,S(ES_QUOT),_______,
   _______, KC_LSFT, _______,KC_C_TAB_PREV,KC_C_TAB,ES_GRV,_______,  _______, KC_RBRC, S(ES_2),S(KC_COMM),S(KC_DOT),S(ES_MINS),_______,
                     _______, _______, _______, _______, _______,    _______, LT(_RAISE, KC_NO),WDEL,_______, _______
+),
+[_G_LOWER] = LAYOUT(
+  _______, _______, _______, _______, _______ , _______,                     _______, _______, _______, _______, _______, _______,
+  _______, _______, KC_UP,   _______,  _______, KC_GAME,                     S(ES_6), S(ES_7),KC_C_PAR, S(ES_9), S(ES_0), _______,
+  _______, KC_LEFT, KC_DOWN, KC_RGHT,  _______, _______,                    S(ES_1),   C_LST,KC_C_CBR,KC_C_BRK,S(ES_QUOT),_______,
+  _______, _______, _______, _______, _______, _______, _______,  _______, KC_RBRC, S(ES_2),S(KC_COMM),S(KC_DOT),S(ES_MINS),_______,
+                    _______,KC_DELETE,_______, _______, _______,    _______, LT(_RAISE, KC_NO),WDEL,_______, _______
 ),
 [_RAISE] = LAYOUT(
   _______, _______, _______, _______, _______, _______,                     _______, _______, _______, _______, _______, _______,
@@ -101,6 +118,62 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
+#ifdef OLED_ENABLE
+
+static void print_status_narrow(void) {
+    // Print current mode
+    oled_write_P(PSTR("\n\n"), false);
+
+    switch (get_highest_layer(default_layer_state)) {
+        case _QWERTY:
+            oled_write_ln_P(PSTR("Qwrt"), false);
+            break;
+        case _M_QWERTY:
+            oled_write_ln_P(PSTR("MQwrt"), false);
+            break;
+        case _GAME:
+            oled_write_ln_P(PSTR("GAME"), false);
+            break;
+        default:
+            oled_write_ln_P(PSTR(""), false);
+    }
+    oled_write_P(PSTR("\n\n"), false);
+    // Print current layer
+    switch (get_highest_layer(layer_state)) {
+        case _RAISE:
+            oled_write_P(PSTR("Raise"), false);
+            break;
+        case _LOWER:
+            oled_write_P(PSTR("Lower"), false);
+            break;
+        case _G_LOWER:
+            oled_write_P(PSTR("GLow"), false);
+            break;
+        case _ADJUST:
+            oled_write_P(PSTR("Adj\n"), false);
+            break;
+        default:
+            oled_write_ln_P(PSTR(""), false);
+    }
+    oled_write_P(PSTR("\n\n"), false);
+}
+
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    if (is_keyboard_master()) {
+        return OLED_ROTATION_270;
+    }
+    return rotation;
+}
+
+bool oled_task_user(void) {
+    if (is_keyboard_master()) {
+        print_status_narrow();
+    }
+    return false;
+}
+
+#endif
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Detect the activation of both Shifts
     if ((get_mods() & MOD_MASK_SHIFT) == MOD_MASK_SHIFT) {
@@ -118,6 +191,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 set_single_persistent_default_layer(_M_QWERTY);
             }
             return false;
+        case KC_GAME:{
+            bool isGame = get_highest_layer(default_layer_state) == _GAME;
+            if (record->event.pressed) {
+                if (isGame) {
+                    set_single_persistent_default_layer(_QWERTY);
+                } else {
+                    set_single_persistent_default_layer(_GAME);
+                }
+            }
+            return false;
+            }
         case KC_C_WINDOW:
             if (record->event.pressed) {
                 if (!is_kc_window_active) {
@@ -398,7 +482,7 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
 #ifdef ENCODER_ENABLE
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
+    if (index == 1) {
         if (clockwise) {
             // next track
             tap_code(KC_MNXT);
@@ -406,7 +490,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             // previous track
             tap_code(KC_MPRV);
         }
-    } else if (index == 1) {
+    } else if (index == 0) {
         if (clockwise) {
             tap_code(KC_VOLU);
         } else {

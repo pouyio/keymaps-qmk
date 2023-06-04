@@ -122,14 +122,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 static void print_status_narrow(void) {
     // Print current mode
-    oled_write_P(PSTR("\n\n"), false);
+    oled_write_P(PSTR("\n"), false);
 
     switch (get_highest_layer(default_layer_state)) {
         case _QWERTY:
-            oled_write_ln_P(PSTR("Qwrt"), false);
+            oled_write_ln_P(PSTR("Win"), false);
             break;
         case _M_QWERTY:
-            oled_write_ln_P(PSTR("MQwrt"), false);
+            oled_write_ln_P(PSTR("Mac"), false);
             break;
         case _GAME:
             oled_write_ln_P(PSTR("GAME"), false);
@@ -137,25 +137,24 @@ static void print_status_narrow(void) {
         default:
             oled_write_ln_P(PSTR(""), false);
     }
-    oled_write_P(PSTR("\n\n"), false);
+    oled_write_ln_P(PSTR("\n\n"), false);
     // Print current layer
     switch (get_highest_layer(layer_state)) {
         case _RAISE:
-            oled_write_P(PSTR("Raise"), false);
+            oled_write_ln_P(PSTR("Raise"), false);
             break;
         case _LOWER:
-            oled_write_P(PSTR("Lower"), false);
+            oled_write_ln_P(PSTR("Lower"), false);
             break;
         case _G_LOWER:
-            oled_write_P(PSTR("GLow"), false);
+            oled_write_ln_P(PSTR("GLow"), false);
             break;
         case _ADJUST:
-            oled_write_P(PSTR("Adj\n"), false);
+            oled_write_ln_P(PSTR("Adj\n"), false);
             break;
         default:
             oled_write_ln_P(PSTR(""), false);
     }
-    oled_write_P(PSTR("\n\n"), false);
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {

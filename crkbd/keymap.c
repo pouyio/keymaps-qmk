@@ -5,7 +5,7 @@
 bool is_kc_window_active = false;
 
 enum combos {
-  Q_SUPER,
+  _Q_SUPER, // not used, only valid for combos length
   COMBO_LENGTH  
 };
 
@@ -38,13 +38,14 @@ enum custom_keycodes {
     NXTWD, // next word for mac/win
     C_HOME, // home for mac/win
     C_END, // end for mac/win
+    Q_SUPER, // super/win combo
 };
 
 
 const uint16_t PROGMEM combo_super[] = {KC_Q, KC_W, COMBO_END};
 
 combo_t key_combos[] = {
-    [Q_SUPER] = COMBO_ACTION(combo_super),
+    COMBO(combo_super, Q_SUPER),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -343,29 +344,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return true;
+        case Q_SUPER:
+            if (record->event.pressed) {
+                if (isWin) {
+                    register_code(KC_LGUI);
+                } else {
+                    register_code(KC_LCTL);
+                }
+            } else {
+                if (isWin) {
+                    unregister_code(KC_LGUI);
+                } else {
+                    unregister_code(KC_LCTL);
+                }
+            }
+            return true;
     }
     return true;
-}
-
-void process_combo_event(uint16_t combo_index, bool pressed) {
-  bool isWin = get_highest_layer(default_layer_state) == _QWERTY;
-  switch(combo_index) {
-    case Q_SUPER:
-      if (pressed) {
-        if (isWin) {
-            register_code(KC_LGUI);
-        } else {
-            register_code(KC_LCTL);
-        }
-      } else {
-        if (isWin) {
-            unregister_code(KC_LGUI);
-        } else {
-            unregister_code(KC_LCTL);
-        }
-      }
-      break;
-  }
 }
 
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {

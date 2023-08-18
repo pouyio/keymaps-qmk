@@ -5,6 +5,7 @@ see https://docs.qmk.fm/#/feature_split_keyboard?id=setting-handedness
 for more options.
 */
 
+#undef TAPPING_FORCE_HOLD
 #undef TAPPING_TERM
 #define TAPPING_TERM 150
 
@@ -22,3 +23,5 @@ for more options.
 #define IGNORE_MOD_TAP_INTERRUPT
 
 #define RETRO_TAPPING_PER_KEY
+
+#define TAPPING_FORCE_HOLD // this is outdated, should be QUICK_TAP_TERM https://docs.qmk.fm/#/ChangeLog/20230226?id=quick-tap-term

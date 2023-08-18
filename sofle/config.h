@@ -9,6 +9,7 @@ for more options.
 // #define OLED_BRIGHTNESS 190
 #undef TAPPING_TERM
 #define TAPPING_TERM 150
+#undef TAPPING_FORCE_HOLD
 
 //                          TAPPING_TERM
 //   +---------------------------|--------+
@@ -24,3 +25,5 @@ for more options.
 #define IGNORE_MOD_TAP_INTERRUPT
 
 #define RETRO_TAPPING_PER_KEY
+
+#define TAPPING_FORCE_HOLD // this is outdated, should be QUICK_TAP_TERM https://docs.qmk.fm/#/ChangeLog/20230226?id=quick-tap-term

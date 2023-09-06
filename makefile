@@ -9,7 +9,7 @@ all: $(KEYBOARDS)
 .PHONY: $(KEYBOARDS)
 $(KEYBOARDS):
 	# init submodule
-	git submodule update --init --recursive
+	# git submodule update --init --recursive
 
 	# cleanup old symlinks
 	for f in $(KEYBOARDS); do rm -rf qmk_firmware/keyboards/$(PATH_$@)/keymaps/$(USER); done
@@ -18,7 +18,9 @@ $(KEYBOARDS):
 	ln -s $(shell pwd)/$@ qmk_firmware/keyboards/$(PATH_$@)/keymaps/$(USER)
 
 	# run lint check
-	cd qmk_firmware; qmk lint -km $(USER) -kb $(PATH_$@) --strict
+	cd qmk_firmware;
+	#  qmk lint -km $(USER) -kb $(PATH_$@) --strict
+	# disabled until crkbd/lib files has license headers
 
 	# run build
 	make BUILD_DIR=$(shell pwd) -j1 -C qmk_firmware $(PATH_$@):$(USER)

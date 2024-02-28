@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______ , _______,                     _______, _______, _______, _______, _______, _______,
   _______, KC_VOLU, KC_MUTE, PRV_WPC,  NXT_WPC, KC_GAME,                     S(ES_6), S(ES_7),KC_C_PAR, S(ES_9), S(ES_0), _______,
   _______, KC_VOLD, KC_MPLY, S(KC_TAB),KC_C_WINDOW,ES_QUOT,                    S(ES_1),   C_LST,KC_C_CBR,KC_C_BRK,S(ES_QUOT),_______,
-  _______, KC_LSFT, _______,KC_C_TAB_PREV,KC_C_TAB,ES_GRV,_______,  _______, KC_RBRC, S(ES_2),S(KC_COMM),S(KC_DOT),S(ES_MINS),_______,
+  _______, KC_LSFT, KC_CAPS,KC_C_TAB_PREV,KC_C_TAB,ES_GRV,_______,  _______, KC_RBRC, S(ES_2),S(KC_COMM),S(KC_DOT),S(ES_MINS),_______,
                     _______, _______, _______, _______, _______,    _______, LT(_RAISE, KC_NO),WDEL,_______, _______
 ),
 [_G_LOWER] = LAYOUT(
@@ -107,9 +107,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 [_RAISE] = LAYOUT(
   _______, _______, _______, _______, _______, _______,                     _______, _______, _______, _______, _______, _______,
-  _______,ALGR(ES_1),ALGR(ES_2),ALGR(ES_3),S(ES_4),S(ES_5),                 _______,   PRVWD,   KC_UP,   NXTWD, _______, _______,
-  _______, _______, _______, _______, _______, _______,                     _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
-  _______, _______, _______, _______, _______, _______,  _______,  _______, _______,  C_HOME, _______,   C_END, _______, _______,
+  _______,ALGR(ES_1),ALGR(ES_2),ALGR(ES_3),S(ES_4),S(ES_5),                   PRVWD,   PRVWD, _______,   NXTWD, _______, _______,
+  _______, _______, _______, _______, _______, _______,                     KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, _______, _______,
+  _______, _______, _______, _______, _______, _______,  _______,  _______,  C_HOME,  C_HOME, _______,   C_END, _______, _______,
                     _______, _______, _______,MO(_LOWER),_______,  _______, _______, _______, _______, _______
 ),
 [_ADJUST] = LAYOUT(

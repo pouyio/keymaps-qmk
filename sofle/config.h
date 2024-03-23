@@ -24,8 +24,8 @@ see https://docs.qmk.fm/#/feature_split_keyboard?id=setting-handedness
 for more options.
 */
 
-// #define OLED_TIMEOUT 10000
-// #define OLED_BRIGHTNESS 190
+#define OLED_TIMEOUT 5000
+#define OLED_BRIGHTNESS 190
 #undef TAPPING_TERM
 #define TAPPING_TERM 150
 #undef TAPPING_FORCE_HOLD

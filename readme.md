@@ -1,10 +1,8 @@
 # Custom 36 keymap for corne/sofle Keyboard
 
-[![corne Keyboard custom keymap](https://user-images.githubusercontent.com/5225417/216134626-eb6801a5-ede3-4f1e-8ce3-920244ee02ef.png)](http://www.keyboard-layout-editor.com/#/gists/bf533ff812829bf261ab7ea44d985077)
+[![corne Keyboard custom keymap](https://github.com/pouyio/keymaps-qmk/assets/5225417/52be8132-203f-47a5-8ef3-06da463ff16b)](http://www.keyboard-layout-editor.com/#/gists/bf533ff812829bf261ab7ea44d985077)
 
 [QMK official docs](https://docs.qmk.fm/#/)
-
-**Removed top, side rows and some bottom keys**, resulting in 5x3+3.
 
 Adapted to **my** personal needs:
 

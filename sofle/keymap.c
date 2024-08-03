@@ -23,13 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 bool is_kc_window_active = false;
 
-enum combos {
-  Q_SUPER,
-  COMBO_LENGTH  
-};
-
-uint16_t COMBO_LEN = COMBO_LENGTH;
-
 enum sofle_layers {
     /* _M_XYZ = Mac Os, _W_XYZ = Win/Linux */
     _QWERTY,
@@ -60,13 +53,16 @@ enum custom_keycodes {
     NXTWD, // next word for mac/win
     C_HOME, // home for mac/win
     C_END, // end for mac/win
+    Q_SUPER, // combo super/win
 };
 
 
-const uint16_t PROGMEM combo_super[] = {KC_Q, KC_W, COMBO_END};
+const uint16_t PROGMEM combo_super_left[] = {KC_R, KC_F, COMBO_END};
+const uint16_t PROGMEM combo_super_right[] = {KC_U, KC_J, COMBO_END};
 
 combo_t key_combos[] = {
-    [Q_SUPER] = COMBO_ACTION(combo_super),
+    COMBO(combo_super_right, Q_SUPER),
+    COMBO(combo_super_left, Q_SUPER),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -450,29 +446,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return true;
+        case Q_SUPER:
+            if (record->event.pressed) {
+                if (isWin) {
+                    register_code(KC_LGUI);
+                } else {
+                    register_code(KC_LCTL);
+                }
+            } else {
+                if (isWin) {
+                    unregister_code(KC_LGUI);
+                } else {
+                    unregister_code(KC_LCTL);
+                }
+            }
+            return true;
     }
     return true;
-}
-
-void process_combo_event(uint16_t combo_index, bool pressed) {
-  bool isWin = get_highest_layer(default_layer_state) == _QWERTY;
-  switch(combo_index) {
-    case Q_SUPER:
-      if (pressed) {
-        if (isWin) {
-            register_code(KC_LGUI);
-        } else {
-            register_code(KC_LCTL);
-        }
-      } else {
-        if (isWin) {
-            unregister_code(KC_LGUI);
-        } else {
-            unregister_code(KC_LCTL);
-        }
-      }
-      break;
-  }
 }
 
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {

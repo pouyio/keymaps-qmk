@@ -23,13 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 bool is_kc_window_active = false;
 
-enum combos {
-  _Q_SUPER, // not used, only valid for combos length
-  COMBO_LENGTH  
-};
-
-uint16_t COMBO_LEN = COMBO_LENGTH;
-
 enum layers {
     /* _M_XYZ = Mac Os, _W_XYZ = Win/Linux */
     _QWERTY,
@@ -58,13 +51,16 @@ enum custom_keycodes {
     C_HOME, // home for mac/win
     C_END, // end for mac/win
     Q_SUPER, // super/win combo
+    Q_SUPER, // combo super/win
 };
 
 
-const uint16_t PROGMEM combo_super[] = {KC_Q, KC_W, COMBO_END};
+const uint16_t PROGMEM combo_super_left[] = {KC_R, KC_F, COMBO_END};
+const uint16_t PROGMEM combo_super_right[] = {KC_U, KC_J, COMBO_END};
 
 combo_t key_combos[] = {
-    COMBO(combo_super, Q_SUPER),
+    COMBO(combo_super_left, Q_SUPER),
+    COMBO(combo_super_right, Q_SUPER),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

@@ -1,15 +1,27 @@
+/*
+This is the c configuration file for the keymap
+
+Copyright 2023 Vicente Ortiz
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #include QMK_KEYBOARD_H
 #include "keymap_spanish.h"
 #include "macros.h"
 
 bool is_kc_window_active = false;
-
-enum combos {
-  _Q_SUPER, // not used, only valid for combos length
-  COMBO_LENGTH  
-};
-
-uint16_t COMBO_LEN = COMBO_LENGTH;
 
 enum layers {
     /* _M_XYZ = Mac Os, _W_XYZ = Win/Linux */
@@ -39,13 +51,16 @@ enum custom_keycodes {
     C_HOME, // home for mac/win
     C_END, // end for mac/win
     Q_SUPER, // super/win combo
+    Q_SUPER, // combo super/win
 };
 
 
-const uint16_t PROGMEM combo_super[] = {KC_Q, KC_W, COMBO_END};
+const uint16_t PROGMEM combo_super_left[] = {KC_R, KC_F, COMBO_END};
+const uint16_t PROGMEM combo_super_right[] = {KC_U, KC_J, COMBO_END};
 
 combo_t key_combos[] = {
-    COMBO(combo_super, Q_SUPER),
+    COMBO(combo_super_left, Q_SUPER),
+    COMBO(combo_super_right, Q_SUPER),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -64,13 +79,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = LAYOUT(
   _______, KC_VOLU, KC_MUTE, PRV_WPC,  NXT_WPC, _______,                     S(ES_6), S(ES_7),KC_C_PAR, S(ES_9), S(ES_0), _______,
   _______, KC_VOLD, KC_MPLY,S(KC_TAB),KC_C_WINDOW,ES_QUOT,                    S(ES_1),   C_LST,KC_C_CBR,KC_C_BRK,S(ES_QUOT),_______,
-  _______, KC_LSFT, _______,KC_C_TAB_PREV,KC_C_TAB,ES_GRV,                   KC_RBRC, S(ES_2),S(KC_COMM),S(KC_DOT),S(ES_MINS),_______,
+  _______, KC_LSFT, KC_CAPS,KC_C_TAB_PREV,KC_C_TAB,ES_GRV,                   KC_RBRC, S(ES_2),S(KC_COMM),S(KC_DOT),S(ES_MINS),_______,
                                       _______, _______, _______,    _______, LT(_RAISE, KC_NO),WDEL
 ),
 [_RAISE] = LAYOUT(
-  _______,ALGR(ES_1),ALGR(ES_2),ALGR(ES_3),S(ES_4),S(ES_5),                 _______,   PRVWD,   KC_UP,   NXTWD, _______, _______,
-  _______, _______, _______, _______, _______, _______,                     _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
-  _______, _______, _______, _______, _______, _______,                     _______,  C_HOME, _______,   C_END, _______, _______,
+  _______,ALGR(ES_1),ALGR(ES_2),ALGR(ES_3),S(ES_4),S(ES_5),                 PRVWD  ,   PRVWD, _______,   NXTWD, _______, _______,
+  _______, _______, _______, _______, _______, _______,                     KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, _______, _______,
+  _______, _______, _______, _______, _______, _______,                      C_HOME,  C_HOME, _______,   C_END, _______, _______,
                              _______,MO(_LOWER),_______,  _______, _______, _______
 ),
 [_ADJUST] = LAYOUT(

@@ -9,7 +9,7 @@ all: $(KEYBOARDS)
 .PHONY: $(KEYBOARDS)
 $(KEYBOARDS):
 	# init submodule
-	# git submodule update --init --recursive
+	git submodule update --init --recursive
 
 	# cleanup old symlinks
 	for f in $(KEYBOARDS); do rm -rf qmk_firmware/keyboards/$(PATH_$@)/keymaps/$(USER); done

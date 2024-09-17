@@ -51,7 +51,6 @@ enum custom_keycodes {
     C_HOME, // home for mac/win
     C_END, // end for mac/win
     Q_SUPER, // super/win combo
-    Q_SUPER, // combo super/win
 };
 
 

@@ -18,9 +18,7 @@ $(KEYBOARDS):
 	ln -s $(shell pwd)/$@ qmk_firmware/keyboards/$(PATH_$@)/keymaps/$(USER)
 
 	# run lint check
-	cd qmk_firmware;
-	#  qmk lint -km $(USER) -kb $(PATH_$@) --strict
-	# disabled until crkbd/lib files has license headers
+	cd qmk_firmware; qmk lint -km $(USER) -kb $(PATH_$@) --strict
 
 	# run build
 	make BUILD_DIR=$(shell pwd) -j1 -C qmk_firmware $(PATH_$@):$(USER)

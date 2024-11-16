@@ -48,6 +48,7 @@ enum custom_keycodes {
     KC_C_E,  // ! and SHIFT(!) = ¡
     KC_C_Q,  // ? and SHIFT(?) = ¿
     KC_C_S,  // / and SHIFT(/) = \ backslash
+    KC_C_QU,  // " and SHIFT(") = '
     KC_VIRG, // ~ for wind/mac
     C_LST, // < for mac/win
     WDEL, // word delete for mac/win
@@ -92,15 +93,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = LAYOUT(
   _______, _______, _______, _______, _______ , _______,                     _______, _______, _______, _______, _______, _______,
   _______, KC_VOLU, KC_MUTE, PRV_WPC,  NXT_WPC, KC_GAME,                     S(ES_6),  KC_C_S,KC_C_PAR, S(ES_9), S(ES_0), _______,
-  _______, KC_VOLD, KC_MPLY, S(KC_TAB),KC_C_WINDOW,ES_QUOT,                  KC_C_E,   C_LST,KC_C_CBR,KC_C_BRK,   KC_C_Q,_______,
-  _______, KC_LSFT, KC_CAPS,KC_C_TAB_PREV,KC_C_TAB,ES_GRV,_______,  _______, KC_RBRC, S(ES_2),S(KC_COMM),S(KC_DOT),S(ES_MINS),_______,
+  _______, KC_VOLD, KC_MPLY, S(KC_TAB),KC_C_WINDOW,_______,                  KC_C_E,   C_LST,KC_C_CBR,KC_C_BRK,   KC_C_Q,_______,
+  _______, KC_LSFT, KC_CAPS,KC_C_TAB_PREV,KC_C_TAB,ES_GRV,_______,  _______, KC_RBRC, KC_C_QU,S(KC_COMM),S(KC_DOT),S(ES_MINS),_______,
                     _______, _______, _______, _______, _______,    _______, LT(_RAISE, KC_NO),WDEL,_______, _______
 ),
 [_G_LOWER] = LAYOUT(
   _______,  KC_F1,   KC_F2,   KC_F3,    KC_F4 ,   KC_F5,                     _______, _______, _______, _______, _______, _______,
   _______, _______, KC_UP,   _______,  _______, KC_GAME,                     S(ES_6),  KC_C_S,KC_C_PAR, S(ES_9), S(ES_0), _______,
   _______, KC_LEFT, KC_DOWN, KC_RGHT,  _______, _______,                    KC_C_E,   C_LST,KC_C_CBR,KC_C_BRK,   KC_C_Q,_______,
-  _______, _______,    KC_I,    KC_K,     KC_L,    KC_M, _______,  _______, KC_RBRC, S(ES_2),S(KC_COMM),S(KC_DOT),S(ES_MINS),_______,
+  _______, _______,    KC_I,    KC_K,     KC_L,    KC_M, _______,  _______, KC_RBRC, KC_C_QU,S(KC_COMM),S(KC_DOT),S(ES_MINS),_______,
                     _______,KC_DELETE,_______, _______, _______,    _______, LT(_RAISE, KC_NO),WDEL,_______, _______
 ),
 [_RAISE] = LAYOUT(
@@ -363,6 +364,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         unregister_code16(ES_BSLS);
                     } else {
                         unregister_code16(ES_SLSH);
+                    }
+                }
+                break;
+            }
+       case KC_C_QU: {
+                bool isShifted = get_mods() & MOD_MASK_SHIFT;
+                if (record->event.pressed) {
+                    if (isShifted) {
+                        del_mods(MOD_MASK_SHIFT);
+                        register_code16(ES_QUOT);
+                        register_code(KC_LSFT);
+                    } else {
+                        register_code16(ES_DQUO);
+                    }
+                } else {
+                    if (isShifted) {
+                        unregister_code16(ES_QUOT);
+                    } else {
+                        unregister_code16(ES_DQUO);
                     }
                 }
                 break;

@@ -42,8 +42,11 @@ enum custom_keycodes {
     KC_C_CBR,  // { and SHIFT({) = } 
     KC_C_BRK,  // [ and SHIFT([) = ]
     KC_C_PAR,  // ( and SHIFT(() = )
+    KC_C_E,  // ! and SHIFT(!) = ¡
+    KC_C_Q,  // ? and SHIFT(?) = ¿
+    KC_C_S,  // / and SHIFT(/) = \ backslash
+    KC_C_QU,  // " and SHIFT(") = '
     KC_VIRG, // ~ for wind/mac
-    C_BSLS, // \ backslash for win/mac
     C_LST, // < for mac/win
     WDEL, // word delete for mac/win
     PRVWD, // previous word for mac/win
@@ -76,9 +79,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        LGUI_T(KC_ESC),LT(_LOWER, KC_TAB),KC_SPC,KC_ENT,LT(_RAISE, KC_BSPC),  KC_DELETE
 ),
 [_LOWER] = LAYOUT(
-  _______, KC_VOLU, KC_MUTE, PRV_WPC,  NXT_WPC, _______,                     S(ES_6), S(ES_7),KC_C_PAR, S(ES_9), S(ES_0), _______,
-  _______, KC_VOLD, KC_MPLY,S(KC_TAB),KC_C_WINDOW,ES_QUOT,                    S(ES_1),   C_LST,KC_C_CBR,KC_C_BRK,S(ES_QUOT),_______,
-  _______, KC_LSFT, KC_CAPS,KC_C_TAB_PREV,KC_C_TAB,ES_GRV,                   KC_RBRC, S(ES_2),S(KC_COMM),S(KC_DOT),S(ES_MINS),_______,
+  _______, KC_VOLU, KC_MUTE, PRV_WPC,  NXT_WPC, _______,                     S(ES_6), KC_C_S,KC_C_PAR, S(ES_9), S(ES_0), _______,
+  _______, KC_VOLD, KC_MPLY,S(KC_TAB),KC_C_WINDOW,ES_QUOT,                    KC_C_E,   C_LST,KC_C_CBR,KC_C_BRK,KC_C_Q,_______,
+  _______, KC_LSFT, KC_CAPS,KC_C_TAB_PREV,KC_C_TAB,ES_GRV,                   KC_RBRC, KC_C_QU,S(KC_COMM),S(KC_DOT),S(ES_MINS),_______,
                                       _______, _______, _______,    _______, LT(_RAISE, KC_NO),WDEL
 ),
 [_RAISE] = LAYOUT(
@@ -88,8 +91,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              _______,MO(_LOWER),_______,  _______, _______, _______
 ),
 [_ADJUST] = LAYOUT(
-  XXXXXXX, KC_EQL,KC_QWERTY,ALGR(ES_E),XXXXXXX,KC_PLUS,                      XXXXXXX,    KC_7,    KC_8,    KC_9,    KC_0, XXXXXXX,
-  XXXXXXX, C_BSLS,KC_M_QWERTY,XXXXXXX,XXXXXXX, XXXXXXX,                      XXXXXXX,    KC_4,    KC_5,    KC_6, KC_VIRG, XXXXXXX,
+  XXXXXXX, KC_M_QWERTY,KC_QWERTY,ALGR(ES_E),XXXXXXX,KC_PLUS,                      XXXXXXX,    KC_7,    KC_8,    KC_9,    KC_0, XXXXXXX,
+  XXXXXXX, XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, XXXXXXX,                      XXXXXXX,    KC_4,    KC_5,    KC_6, KC_VIRG, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX,    KC_1,    KC_2,    KC_3, XXXXXXX, XXXXXXX,
                                       _______, _______, _______,    _______, _______, _______
   )
@@ -236,37 +239,97 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return true;
-        case C_BSLS:
-            if (record->event.pressed) {
-                if (isWin) {
-                    register_code16(ALGR(ES_MORD));
-                } else {
-                    // not working
-                    register_code16(LALT(KC_GRV));
-                }
-            } else {
-                if (isWin) {
-                    unregister_code16(ALGR(ES_MORD));
-                } else {
-                    unregister_code16(LALT(KC_GRV));
-                }
-            }
-            return true;
         case C_LST:
             if (record->event.pressed) {
                 if (isWin) {
-                    register_code16(KC_NUBS);
-                } else {
                     register_code16(KC_GRV);
+                } else {
+                    register_code16(KC_NUBS);
                 }
             } else {
                 if (isWin) {
-                    unregister_code16(KC_NUBS);
-                } else {
                     unregister_code16(KC_GRV);
+                } else {
+                    unregister_code16(KC_NUBS);
                 }
             }
             return true;
+        case KC_C_E:{
+                bool isShifted = get_mods() & MOD_MASK_SHIFT;
+                 if (record->event.pressed) {
+                    if (isShifted) {
+                        del_mods(MOD_MASK_SHIFT);
+                        register_code16(ES_IEXL);
+                        register_code(KC_LSFT);
+                    } else {
+                        register_code16(ES_EXLM);
+                    }
+                } else {
+                    if (isShifted) {
+                        unregister_code16(ES_IEXL);
+                    } else {
+                        unregister_code16(ES_EXLM);
+                    }
+                }
+                break;
+            }
+        case KC_C_Q:{
+                bool isShifted = get_mods() & MOD_MASK_SHIFT;
+                 if (record->event.pressed) {
+                    if (isShifted) {
+                        del_mods(MOD_MASK_SHIFT);
+                        register_code16(ES_IQUE);
+                        register_code(KC_LSFT);
+                    } else {
+                        register_code16(ES_QUES);
+                    }
+                } else {
+                    if (isShifted) {
+                        unregister_code16(ES_IQUE);
+                    } else {
+                        unregister_code16(ES_QUES);
+                    }
+                }
+                break;
+            }
+        case KC_C_S:{
+                bool isShifted = get_mods() & MOD_MASK_SHIFT;
+                 if (record->event.pressed) {
+                    if (isShifted) {
+                        del_mods(MOD_MASK_SHIFT);
+                        register_code16(ES_BSLS);
+                        register_code(KC_LSFT);
+                    } else {
+                        register_code16(ES_SLSH);
+                    }
+                } else {
+                    if (isShifted) {
+                        unregister_code16(ES_BSLS);
+                    } else {
+                        unregister_code16(ES_SLSH);
+                    }
+                }
+                break;
+            }
+       case KC_C_QU: {
+                bool isShifted = get_mods() & MOD_MASK_SHIFT;
+                if (record->event.pressed) {
+                    if (isShifted) {
+                        del_mods(MOD_MASK_SHIFT);
+                        register_code16(ES_QUOT);
+                        register_code(KC_LSFT);
+                    } else {
+                        register_code16(ES_DQUO);
+                    }
+                } else {
+                    if (isShifted) {
+                        unregister_code16(ES_QUOT);
+                    } else {
+                        unregister_code16(ES_DQUO);
+                    }
+                }
+                break;
+            }
         case WDEL:
             if (record->event.pressed) {
                 if (isWin) {

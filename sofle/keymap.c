@@ -406,15 +406,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case C_LST:
             if (record->event.pressed) {
                 if (isWin) {
-                    register_code16(KC_NUBS);
+                  register_code16(KC_GRV);
                 } else {
-                    register_code16(KC_GRV);
+                  register_code16(KC_NUBS);
                 }
             } else {
                 if (isWin) {
-                    unregister_code16(KC_NUBS);
+                  unregister_code16(KC_GRV);
                 } else {
-                    unregister_code16(KC_GRV);
+                  unregister_code16(KC_NUBS);
                 }
             }
             return true;

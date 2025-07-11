@@ -23,6 +23,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 bool is_kc_window_active = false;
 
+// Tap Dance declarations
+enum {
+    TD_MEDIA,
+};
+
+// Tap Dance definitions
+tap_dance_action_t tap_dance_actions[] = {
+    // Tap once for Escape, twice for Caps Lock
+    [TD_MEDIA] = ACTION_TAP_DANCE_DOUBLE(KC_MNXT, KC_MPRV),
+};
+
 enum sofle_layers {
     /* _M_XYZ = Mac Os, _W_XYZ = Win/Linux */
     _QWERTY,
@@ -93,14 +104,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = LAYOUT(
   _______, _______, _______, _______, _______ , _______,                     _______, _______, _______, _______, _______, _______,
   _______, KC_VOLU, KC_MUTE, PRV_WPC,  NXT_WPC, KC_GAME,                     S(ES_6),  KC_C_S,KC_C_PAR, S(ES_9), S(ES_0), _______,
-  _______, KC_VOLD, KC_MPLY, S(KC_TAB),KC_C_WINDOW,_______,                  KC_C_E,   C_LST,KC_C_CBR,KC_C_BRK,   KC_C_Q,_______,
+  _______, KC_VOLD, KC_MPLY, S(KC_TAB),KC_C_WINDOW,TD(TD_MEDIA),                  KC_C_E,   C_LST,KC_C_CBR,KC_C_BRK,   KC_C_Q,_______,
   _______, KC_LSFT, KC_CAPS,KC_C_TAB_PREV,KC_C_TAB,ES_GRV,_______,  _______, KC_RBRC, KC_C_QU,S(KC_COMM),S(KC_DOT),S(ES_MINS),_______,
                     _______, _______, _______, _______, _______,    _______, LT(_RAISE, KC_NO),WDEL,_______, _______
 ),
 [_G_LOWER] = LAYOUT(
   _______,  KC_F1,   KC_F2,   KC_F3,    KC_F4 ,   KC_F5,                       KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,
   _______, _______, KC_UP,   _______,  _______, KC_GAME,                     S(ES_6),  KC_C_S,KC_C_PAR, S(ES_9), S(ES_0),  KC_F12,
-  _______, KC_LEFT, KC_DOWN, KC_RGHT,  _______, _______,                    KC_C_E,   C_LST,KC_C_CBR,KC_C_BRK,   KC_C_Q,_______,
+  _______, KC_LEFT, KC_DOWN, KC_RGHT,  _______, TD(TD_MEDIA),                    KC_C_E,   C_LST,KC_C_CBR,KC_C_BRK,   KC_C_Q,_______,
   _______,    KC_H,    KC_I,    KC_K,     KC_L,    KC_M, _______,  _______, KC_RBRC, KC_C_QU,S(KC_COMM),S(KC_DOT),S(ES_MINS),_______,
                     _______,KC_DELETE,_______, _______, _______,    _______, LT(_RAISE, KC_NO),WDEL,_______, _______
 ),
